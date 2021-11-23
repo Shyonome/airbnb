@@ -50,10 +50,7 @@ export default function SignUpScreen({ setToken }) {
         resizeMode="contain"
       />
       <View>
-        <KeyboardAwareScrollView
-          enableOnAndroid={true}
-          enableAutomaticScroll={Platform.OS === "ios"}
-        >
+        <KeyboardAwareScrollView enableOnAndroid={true}>
           <TextInput
             placeholder="email"
             onChangeText={(text) => {

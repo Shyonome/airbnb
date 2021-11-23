@@ -52,7 +52,7 @@ export default function SignInScreen({ setToken }) {
           source={require("../assets/images/airbnb-logo.jpg")}
           resizeMode="contain"
         />
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView enableOnAndroid={true}>
           <TextInput
             placeholder="email"
             onChangeText={(text) => {
