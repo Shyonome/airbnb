@@ -13,10 +13,12 @@ export default function SignUpScreen({ setToken }) {
   const [description, setDescription] = useState();
   const [password, setPassword] = useState();
   const [confirmpassword, setConfirmPassword] = useState();
+  const [error, setError] = useState();
 
   const fetchData = async () => {
     try {
       if (email && username && description && password && confirmpassword) {
+        setError("");
         if (password === confirmpassword) {
           const response = await axios.post(
             "https://express-airbnb-api.herokuapp.com/user/sign_up",
@@ -30,65 +32,71 @@ export default function SignUpScreen({ setToken }) {
           console.log(response.data);
           if (response.data) {
             setData(response.data);
-            const userToken = "secret-token";
-            setToken(userToken);
+            setToken(response.data.token);
           }
         } else {
-          alert("No same password");
+          setError("No same password");
         }
+      } else {
+        setError("Remplir tous les champs");
       }
     } catch (error) {
       console.log(error.message);
+      if (
+        error.response.data.error === "This username already has an account." ||
+        error.response.data.error === "This email already has an account."
+      ) {
+        setError(error.response.data.error);
+      }
     }
   };
 
   return (
-    <View>
+    <KeyboardAwareScrollView enableOnAndroid={true}>
       <Image
         style={{ height: 150, width: 100 }}
         source={require("../assets/images/airbnb-logo.jpg")}
         resizeMode="contain"
       />
       <View>
-        <KeyboardAwareScrollView enableOnAndroid={true}>
-          <TextInput
-            placeholder="email"
-            onChangeText={(text) => {
-              setEmail(text);
-            }}
-            value={email}
-          />
-          <TextInput
-            placeholder="username"
-            onChangeText={(text) => {
-              setUsername(text);
-            }}
-            value={username}
-          />
-          <Textarea
-            placeholder="description"
-            onChangeText={(text) => {
-              setDescription(text);
-            }}
-            value={description}
-          />
-          <TextInput
-            placeholder="password"
-            secureTextEntry={true}
-            onChangeText={(text) => {
-              setPassword(text);
-            }}
-            value={password}
-          />
-          <TextInput
-            placeholder="confirm password"
-            secureTextEntry={true}
-            onChangeText={(text) => {
-              setConfirmPassword(text);
-            }}
-            value={confirmpassword}
-          />
-        </KeyboardAwareScrollView>
+        <TextInput
+          placeholder="email"
+          onChangeText={(text) => {
+            setEmail(text);
+          }}
+          value={email}
+        />
+        <TextInput
+          placeholder="username"
+          onChangeText={(text) => {
+            setUsername(text);
+          }}
+          value={username}
+        />
+        <Textarea
+          placeholder="description"
+          onChangeText={(text) => {
+            setDescription(text);
+          }}
+          value={description}
+        />
+        <TextInput
+          placeholder="password"
+          secureTextEntry={true}
+          onChangeText={(text) => {
+            setPassword(text);
+          }}
+          value={password}
+        />
+        <TextInput
+          placeholder="confirm password"
+          secureTextEntry={true}
+          onChangeText={(text) => {
+            setConfirmPassword(text);
+          }}
+          value={confirmpassword}
+        />
+        <Text style={{ color: "red" }}>{error}</Text>
         <TouchableOpacity
           title="Sign up"
           onPress={() => {
@@ -105,6 +113,6 @@ export default function SignUpScreen({ setToken }) {
       >
         <Text>Already an account ? Sign In</Text>
       </TouchableOpacity>
-    </View>
+    </KeyboardAwareScrollView>
   );
 }
