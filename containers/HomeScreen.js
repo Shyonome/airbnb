@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useNavigation } from "@react-navigation/core";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   StyleSheet,
   Button,
@@ -36,6 +37,60 @@ export default function HomeScreen({ setOfferId }) {
     fetchData();
   }, []);
 
+  const checkRating = (item) => {
+    if (item.ratingValue === 1) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (item.ratingValue === 2) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (item.ratingValue === 3) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (item.ratingValue === 4) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (item.ratingValue === 5) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+        </View>
+      );
+    }
+  };
+
   return isLoading ? (
     <ActivityIndicator size="large" color="red" />
   ) : (
@@ -68,6 +123,7 @@ export default function HomeScreen({ setOfferId }) {
               <View style={[styles.row]}>
                 <View style={[styles.column]}>
                   <Text>{item.title}</Text>
+                  {checkRating(item)}
                   <Text>{item.reviews} reviews</Text>
                 </View>
                 <Image

@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { FontAwesome } from "@expo/vector-icons";
 import {
   StyleSheet,
   Button,
@@ -14,6 +15,60 @@ import {
 export default function RoomScreen({ offerId }) {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+
+  const checkRating = () => {
+    if (data.ratingValue === 1) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (data.ratingValue === 2) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (data.ratingValue === 3) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (data.ratingValue === 4) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star-o" size={32} />
+        </View>
+      );
+    } else if (data.ratingValue === 5) {
+      return (
+        <View style={[styles.row]}>
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+          <FontAwesome name="star" size={32} />
+        </View>
+      );
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,6 +105,7 @@ export default function RoomScreen({ offerId }) {
           <Text style={{ fontWeight: "bold" }} numberOfLines={1}>
             {data.title}
           </Text>
+          {checkRating()}
           <Text>{data.reviews} reviews</Text>
         </View>
         <Image
