@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesome } from "@expo/vector-icons";
 import {
   StyleSheet,
-  Button,
+  ScrollView,
   Text,
   View,
   FlatList,
@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
+import MapView from "react-native-maps";
 
 export default function RoomScreen({ offerId }) {
   const [data, setData] = useState();
@@ -89,8 +90,7 @@ export default function RoomScreen({ offerId }) {
   return isLoading ? (
     <ActivityIndicator size="large" color="red" />
   ) : (
-    <View>
-      <Text>RoomScreen</Text>
+    <ScrollView>
       <View>
         <Image
           style={[styles.offersImage]}
@@ -114,7 +114,25 @@ export default function RoomScreen({ offerId }) {
         />
       </View>
       <Text style={{ marginLeft: 15 }}>{data.description} reviews</Text>
-    </View>
+      <View>
+        <MapView
+          style={[styles.map]}
+          initialRegion={{
+            longitude: data.location[0],
+            latitude: data.location[1],
+            latitudeDelta: 0.1,
+            longitudeDelta: 0.1,
+          }}
+        >
+          <MapView.Marker
+            coordinate={{
+              longitude: data.location[0],
+              latitude: data.location[1],
+            }}
+          />
+        </MapView>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -153,5 +171,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
     backgroundColor: "black",
+  },
+
+  map: {
+    height: 300,
+    width: 500,
+    marginTop: 20,
+    marginBottom: 50,
   },
 });
