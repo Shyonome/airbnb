@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/core";
 import { Image, Text, TextInput, View, TouchableOpacity } from "react-native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-export default function SignUpScreen({ setToken }) {
+export default function SignUpScreen({ setToken, setId }) {
   const navigation = useNavigation();
   const [data, setData] = useState();
   const [email, setEmail] = useState();
@@ -32,6 +32,7 @@ export default function SignUpScreen({ setToken }) {
           console.log(response.data);
           if (response.data) {
             setData(response.data);
+            setId(response.data.id);
             setToken(response.data.token);
           }
         } else {

@@ -26,7 +26,7 @@ export default function HomeScreen({ setOfferId }) {
         const response = await axios.get(
           "https://express-airbnb-api.herokuapp.com/rooms"
         );
-        console.log(response.data);
+        //console.log(response.data);
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -95,7 +95,6 @@ export default function HomeScreen({ setOfferId }) {
     <ActivityIndicator size="large" color="red" />
   ) : (
     <View>
-      <Text>Welcome home!</Text>
       {error && <Text>{error}</Text>}
       <FlatList
         data={data}
@@ -138,7 +137,7 @@ export default function HomeScreen({ setOfferId }) {
       <Button
         title="Go to Profile"
         onPress={() => {
-          navigation.navigate("Profile", { userId: 123 });
+          navigation.navigate("Profile", data);
         }}
       />
     </View>
