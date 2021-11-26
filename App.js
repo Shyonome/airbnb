@@ -5,6 +5,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 import HomeScreen from "./containers/HomeScreen";
 import ProfileScreen from "./containers/ProfileScreen";
 import SignInScreen from "./containers/SignInScreen";
@@ -114,6 +115,31 @@ export default function App() {
                         name="Profile"
                         options={{
                           title: "User Profile",
+                        }}
+                      >
+                        {() => <ProfileScreen />}
+                      </Stack.Screen>
+                    </Stack.Navigator>
+                  )}
+                </Tab.Screen>
+
+                <Tab.Screen
+                  name="TabProfile"
+                  options={{
+                    tabBarLabel: "Profile",
+                    tabBarIcon: ({ color, size }) => (
+                      <AntDesign name="user" size={size} color={color} />
+                    ),
+                  }}
+                >
+                  {() => (
+                    <Stack.Navigator>
+                      <Stack.Screen
+                        name="Profile"
+                        options={{
+                          title: "Profile",
+                          headerStyle: { backgroundColor: "red" },
+                          headerTitleStyle: { color: "white" },
                         }}
                       >
                         {() => <ProfileScreen />}

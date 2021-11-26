@@ -57,8 +57,8 @@ export default function AroundMeScreen() {
     <MapView
       style={[styles.map]}
       initialRegion={{
-        latitude: latitude,
-        longitude: longitude,
+        latitude: 48.856614,
+        longitude: 2.3522219,
         latitudeDelta: 0.1,
         longitudeDelta: 0.1,
       }}
